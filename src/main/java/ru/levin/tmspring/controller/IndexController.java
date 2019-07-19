@@ -2,6 +2,7 @@ package ru.levin.tmspring.controller;
 
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -9,9 +10,10 @@ import org.springframework.web.servlet.ModelAndView;
 public class IndexController {
 
     @RequestMapping("/")
-    public ModelAndView getIndex() {
+    public String getIndex(Model model) {
         @NotNull final String message = "Hello, bobah!";
-        return new ModelAndView("index", "message", message);
+        model.addAttribute("message", message);
+        return "index";
     }
 
 }

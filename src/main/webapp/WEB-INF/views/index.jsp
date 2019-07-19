@@ -9,6 +9,7 @@
     <title>Task-manager Spring</title>
 </head>
 <body>
-    ${message}
+    ${requestScope.get("message")}
+
 </body>
 </html>
