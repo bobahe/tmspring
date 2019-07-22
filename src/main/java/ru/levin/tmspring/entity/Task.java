@@ -5,6 +5,7 @@ import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -19,10 +20,10 @@ public class Task extends AbstractEntity {
     private String description;
 
     @Nullable
-    private LocalDateTime startDate;
+    private LocalDate startDate;
 
     @Nullable
-    private LocalDateTime endDate;
+    private LocalDate endDate;
 
     @NotNull
     private Status status = Status.PLANNED;

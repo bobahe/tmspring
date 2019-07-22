@@ -2,11 +2,16 @@ package ru.levin.tmspring.repository;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 import ru.levin.tmspring.entity.Project;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
+@Scope("singleton")
 public class ProjectRepository extends AbstractRepository<Project> {
 
     @Override

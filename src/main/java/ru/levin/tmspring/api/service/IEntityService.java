@@ -8,16 +8,16 @@ import java.util.List;
 
 public interface IEntityService<T extends AbstractEntity> {
 
-    void create(T entity);
+    void create(@Nullable final T entity);
 
-    void update(T entity);
+    void update(@Nullable final T entity);
 
-    void delete(T entity);
+    void delete(@Nullable final T entity);
 
     @NotNull
     List<T> findAll();
 
-    @NotNull
+    @Nullable
     T getById(@Nullable final String id);
 
 }
