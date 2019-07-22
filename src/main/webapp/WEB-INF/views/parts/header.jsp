@@ -14,11 +14,12 @@
             </a>
             <ul class="navbar-nav mr-auto flex-row">
                 <li class="nav-item active mr-3">
-                    <a class="nav-link" href="<c:url value="/project-list"/>">Проекты <span
-                            class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="<c:url value="/project-list"/>">
+                        <i class="fas fa-project-diagram"></i> Проекты <span class="sr-only">(current)</span>
+                    </a>
                 </li>
                 <li class="nav-item mr-3">
-                    <a class="nav-link" href="#">Задачи</a>
+                    <a class="nav-link" href="#"><i class="fas fa-tasks"></i> Задачи</a>
                 </li>
             </ul>
         </div>

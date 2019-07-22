@@ -36,7 +36,7 @@
                 <td>${project.name}</td>
                 <td>${project.description}</td>
                 <td class="text-center">
-                    <a href="#"><i class="far fa-eye text-info"></i></a>
+                    <a href="<c:url value="/project-detail/${project.id}"/>"><i class="far fa-eye text-info"></i></a>
                 </td>
                 <td class="text-center">
                     <a href="<c:url value="/project-edit/${project.id}"/>"><i class="far fa-edit text-primary"></i></a>
@@ -52,9 +52,11 @@
     <div class="d-flex">
         <a class="btn btn-success mr-3"
            href="<c:url value="/project-create"/>" role="button">
-            Добавить проект
+            <i class="fas fa-folder-plus"></i> Добавить проект
         </a>
-        <a class="btn btn-light" href="<c:url value="/project-list"/>" role="button">Обновить</a>
+        <a class="btn btn-light" href="<c:url value="/project-list"/>" role="button">
+            <i class="fas fa-sync"></i> Обновить
+        </a>
     </div>
 </div>
 

@@ -57,6 +57,12 @@ public class ProjectController {
         return "project-edit";
     }
 
+    @RequestMapping("/project-detail/{id}")
+    public String showProject(final Model model, @PathVariable String id) {
+        model.addAttribute("project", projectService.getById(id));
+        return "project-detail";
+    }
+
     @RequestMapping(value = "/project-save", method = RequestMethod.POST)
     public String saveProject(final RedirectAttributes redirectAttributes, final @ModelAttribute("project") Project project) {
         redirectAttributes.addFlashAttribute("error", "");

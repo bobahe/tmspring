@@ -11,13 +11,14 @@
     <title>Task-manager Spring</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css">
 </head>
 <body>
 <%@include file="parts/header.jsp" %>
 
 <div class="container">
     <div class="col-12 col-md-8 offset-md-2">
-        <h1>Создание проекта</h1>
+        <h1>Редактирование проекта</h1>
         <form:form action="${pageContext.request.contextPath}/project-save" method="post" modelAttribute="project">
             <div class="form-group">
                 <form:label for="inputId" path="id">ID</form:label>
@@ -51,8 +52,10 @@
                 </form:select>
             </div>
             <div class="d-flex">
-                <button type="submit" class="btn btn-success mr-4">Сохранить</button>
-                <a class="btn btn-light" href="<c:url value="/project-list"/>" role="button">Отмена</a>
+                <button type="submit" class="btn btn-success mr-4"><i class="far fa-save"></i> Сохранить</button>
+                <a class="btn btn-light" href="<c:url value="/project-list"/>" role="button">
+                    <i class="fas fa-chevron-circle-left"></i> Назад
+                </a>
             </div>
         </form:form>
     </div>
