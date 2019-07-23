@@ -6,9 +6,9 @@ import org.jetbrains.annotations.NotNull;
 @Getter
 public enum Status {
 
-    PLANNED ("Запланировано"),
-    IN_PROCESS ("Выполняется"),
-    READY ("Выполнено");
+    PLANNED("Запланировано"),
+    IN_PROCESS("Выполняется"),
+    READY("Выполнено");
 
     @NotNull
     private final String displayName;

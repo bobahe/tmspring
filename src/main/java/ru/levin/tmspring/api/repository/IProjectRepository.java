@@ -5,5 +5,4 @@ import ru.levin.tmspring.entity.Project;
 public interface IProjectRepository extends IRepository<Project> {
 
 
-
 }

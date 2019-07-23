@@ -4,6 +4,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+import ru.levin.tmspring.api.repository.ITaskRepository;
 import ru.levin.tmspring.entity.Task;
 
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ import java.util.List;
 
 @Component
 @Scope("singleton")
-public class TaskRepository extends AbstractRepository<Task> {
+public class TaskRepository extends AbstractRepository<Task> implements ITaskRepository {
 
     @Override
     public void save(final @NotNull Task entity) {

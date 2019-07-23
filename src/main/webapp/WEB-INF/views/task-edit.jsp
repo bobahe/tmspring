@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page contentType="text/html; charset=utf-8" %>
 <!doctype html>
 <html lang="ru">
@@ -14,16 +15,29 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css">
 </head>
 <body>
-<%@include file="parts/headerProjectActive.jsp" %>
+<%@include file="parts/headerTaskActive.jsp" %>
 
 <div class="container">
     <div class="col-12 col-md-8 offset-md-2">
-        <h1>Редактирование проекта</h1>
-        <form:form action="${pageContext.request.contextPath}/project-save" method="post" modelAttribute="project">
+        <h1>Редактирование Задачи</h1>
+        <form:form action="${pageContext.request.contextPath}/task-save" method="post" modelAttribute="task">
             <div class="form-group">
                 <form:label for="inputId" path="id">ID</form:label>
                 <form:input type="text" class="form-control"
                             id="inputId" path="id" aria-describedby="projectId" readonly="true"></form:input>
+            </div>
+            <div class="form-group">
+                <form:label path="projectId">Проект:</form:label>
+                <form:select path="projectId">
+                    <c:forEach var="project" items="${projects}">
+                        <c:if test="${project.id == task.projectId}">
+                            <form:option value="${project.id}" label="${project.name}" selected="selected"/>
+                        </c:if>
+                        <c:if test="${project.id != task.projectId}">
+                            <form:option value="${project.id}" label="${project.name}"/>
+                        </c:if>
+                    </c:forEach>
+                </form:select>
             </div>
             <div class="form-group">
                 <form:label for="inputName" path="name">Имя</form:label>

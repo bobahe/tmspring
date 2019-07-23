@@ -21,13 +21,12 @@ import java.util.stream.Collectors;
 public class ProjectService implements IProjectService {
 
     private ProjectRepository projectRepository;
+    private TaskRepository taskRepository;
 
     @Autowired
     public void setProjectRepository(@NotNull final ProjectRepository projectRepository) {
         this.projectRepository = projectRepository;
     }
-
-    private TaskRepository taskRepository;
 
     @Autowired
     public void setTaskRepository(@NotNull final TaskRepository taskRepository) {

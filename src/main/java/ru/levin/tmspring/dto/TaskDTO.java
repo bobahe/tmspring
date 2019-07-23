@@ -1,15 +1,16 @@
-package ru.levin.tmspring.entity;
+package ru.levin.tmspring.dto;
 
 import lombok.Getter;
 import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import ru.levin.tmspring.entity.Status;
 
 import java.time.LocalDate;
 
 @Getter
 @Setter
-public class Task extends AbstractEntity {
+public class TaskDTO extends AbstractEntityDTO {
 
     @Nullable
     private String name;
@@ -27,6 +28,6 @@ public class Task extends AbstractEntity {
     private Status status = Status.PLANNED;
 
     @Nullable
-    private Project project;
+    private String projectId;
 
 }

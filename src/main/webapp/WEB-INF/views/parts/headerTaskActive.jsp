@@ -13,13 +13,13 @@
                 <strong>Task-manager Spring</strong>
             </a>
             <ul class="navbar-nav mr-auto flex-row">
-                <li class="nav-item active mr-3">
+                <li class="nav-item mr-3">
                     <a class="nav-link" href="<c:url value="/project-list"/>">
                         <i class="fas fa-project-diagram"></i> Проекты <span class="sr-only">(current)</span>
                     </a>
                 </li>
-                <li class="nav-item mr-3">
-                    <a class="nav-link" href="#"><i class="fas fa-tasks"></i> Задачи</a>
+                <li class="nav-item active mr-3">
+                    <a class="nav-link" href="<c:url value="/task-list"/>"><i class="fas fa-tasks"></i> Задачи</a>
                 </li>
             </ul>
         </div>

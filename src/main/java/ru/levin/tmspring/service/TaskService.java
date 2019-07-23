@@ -4,26 +4,30 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.levin.tmspring.api.service.IProjectService;
+import ru.levin.tmspring.api.repository.IProjectRepository;
+import ru.levin.tmspring.api.repository.ITaskRepository;
 import ru.levin.tmspring.api.service.ITaskService;
-import ru.levin.tmspring.entity.Project;
+import ru.levin.tmspring.dto.TaskDTO;
 import ru.levin.tmspring.entity.Task;
-import ru.levin.tmspring.exception.IdNullOrEmptyException;
-import ru.levin.tmspring.exception.NullDeleteException;
-import ru.levin.tmspring.exception.NullOrEmptyNameException;
-import ru.levin.tmspring.exception.NullSaveException;
-import ru.levin.tmspring.repository.ProjectRepository;
-import ru.levin.tmspring.repository.TaskRepository;
+import ru.levin.tmspring.exception.*;
 
 import java.util.List;
 
 @Service
 public class TaskService implements ITaskService {
 
-    private TaskRepository taskRepository;
+    private ITaskRepository taskRepository;
+
+    private IProjectRepository projectRepository;
+
     @Autowired
-    public void setTaskRepository(@NotNull final TaskRepository taskRepository) {
+    public void setTaskRepository(@NotNull final ITaskRepository taskRepository) {
         this.taskRepository = taskRepository;
+    }
+
+    @Autowired
+    public void setProjectRepository(final IProjectRepository projectRepository) {
+        this.projectRepository = projectRepository;
     }
 
     @Override
@@ -34,10 +38,36 @@ public class TaskService implements ITaskService {
     }
 
     @Override
+    public void create(final @Nullable TaskDTO entity) {
+        if (entity == null) throw new NullSaveException();
+        if (entity.getName() == null || entity.getName().isEmpty()) throw new NullOrEmptyNameException();
+        @NotNull final Task task = new Task();
+        task.setId(entity.getId());
+        task.setName(entity.getName());
+        task.setProject(projectRepository.findById(entity.getProjectId()));
+        taskRepository.save(task);
+    }
+
+    @Override
     public void update(final @Nullable Task entity) {
         if (entity == null) throw new NullSaveException();
         if (entity.getName() == null || entity.getName().isEmpty()) throw new NullOrEmptyNameException();
         taskRepository.save(entity);
+    }
+
+    @Override
+    public void update(final @Nullable TaskDTO entity) {
+        if (entity == null) throw new NullSaveException();
+        if (entity.getName() == null || entity.getName().isEmpty()) throw new NullOrEmptyNameException();
+        @Nullable final Task task = taskRepository.findById(entity.getId());
+        if (task == null) throw new NoSuchProjectException();
+        task.setName(entity.getName());
+        task.setDescription(entity.getDescription());
+        task.setStartDate(entity.getStartDate());
+        task.setEndDate(entity.getEndDate());
+        task.setStatus(entity.getStatus());
+        task.setProject(projectRepository.findById(entity.getProjectId()));
+        taskRepository.save(task);
     }
 
     @Override

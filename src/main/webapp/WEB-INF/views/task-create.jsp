@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ page contentType="text/html; charset=utf-8" %>
 <!doctype html>
 <html lang="ru">
@@ -16,36 +17,29 @@
 <%@include file="parts/headerProjectActive.jsp" %>
 
 <div class="container">
-    <div class="col-12 col-md-8 offset-md-2">
-        <h1>Детали проекта</h1>
-        <table class="table">
-            <tr>
-                <td>ID:</td>
-                <td>${project.id}</td>
-            </tr>
-            <tr>
-                <td>Название:</td>
-                <td>${project.name}</td>
-            </tr>
-            <tr>
-                <td>Описание:</td>
-                <td>${project.description}</td>
-            </tr>
-            <tr>
-                <td>Дата начала:</td>
-                <td class="dateStart">${project.startDate}</td>
-            </tr>
-            <tr>
-                <td>Дата завершения:</td>
-                <td class="dateEnd">${project.endDate}</td>
-            </tr>
-            <tr>
-                <td>Статус:</td>
-                <td>${project.status.displayName}</td>
-            </tr>
-        </table>
-        <a class="btn btn-light" href="<c:url value="/project-list"/>" role="button"><i class="fas fa-chevron-circle-left"></i> Назад</a>
-    </div>
+    <h1>Создание задачи</h1>
+    <form:form action="${pageContext.request.contextPath}/task-save" method="post" modelAttribute="task">
+        <div class="form-group">
+            <form:label for="inputId" path="id">ID</form:label>
+            <form:input type="text" class="form-control"
+                        id="inputId"  path="id" aria-describedby="taskId" readonly="true"></form:input>
+        </div>
+        <div class="form-group">
+            <form:label path="projectId">Проект:</form:label>
+            <form:select path="projectId">
+                <form:options items="${projects}" itemValue="id" itemLabel="name"/>
+            </form:select>
+        </div>
+        <div class="form-group">
+            <form:label for="inputName" path="name">Имя</form:label>
+            <form:input type="text" class="form-control"
+                        id="inputName" path="name" aria-describedby="taskName"></form:input>
+        </div>
+        <div class="d-flex">
+            <button type="submit" class="btn btn-success mr-4">Сохранить</button>
+            <a class="btn btn-light" href="<c:url value="/task-list"/>" role="button">Отмена</a>
+        </div>
+    </form:form>
 </div>
 
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
@@ -59,16 +53,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
         integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
         crossorigin="anonymous">
-</script>
-<script>
-    $(document).ready(function(){
-        var ds = $('.dateStart');
-        var dts = new Date(ds.text()).toLocaleDateString();
-        if (dts !== 'Invalid Date') ds.text(dts);
-        var de = $('.dateEnd');
-        var dte = new Date(de.text()).toLocaleDateString();
-        if (dte !== 'Invalid Date') de.text(dte);
-    });
 </script>
 </body>
 </html>
