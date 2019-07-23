@@ -7,6 +7,7 @@ import ru.levin.tmspring.entity.Task;
 public interface ITaskService extends IEntityService<Task> {
 
     void create(final @Nullable TaskDTO entity);
+
     void update(final @Nullable TaskDTO entity);
 
 }

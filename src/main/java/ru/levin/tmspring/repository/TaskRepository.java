@@ -15,11 +15,6 @@ import java.util.List;
 public class TaskRepository extends AbstractRepository<Task> implements ITaskRepository {
 
     @Override
-    public void save(final @NotNull Task entity) {
-        this.storage.put(entity.getId(), entity);
-    }
-
-    @Override
     public void delete(final @NotNull Task entity) {
         this.storage.remove(entity.getId(), entity);
     }
@@ -38,6 +33,11 @@ public class TaskRepository extends AbstractRepository<Task> implements ITaskRep
     @Override
     public @NotNull List<Task> getAll() {
         return new ArrayList<>(this.storage.values());
+    }
+
+    @Override
+    public void save(final @NotNull Task entity) {
+        this.storage.put(entity.getId(), entity);
     }
 
 }

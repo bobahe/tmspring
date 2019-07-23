@@ -20,16 +20,6 @@ public class TaskService implements ITaskService {
 
     private IProjectRepository projectRepository;
 
-    @Autowired
-    public void setTaskRepository(@NotNull final ITaskRepository taskRepository) {
-        this.taskRepository = taskRepository;
-    }
-
-    @Autowired
-    public void setProjectRepository(final IProjectRepository projectRepository) {
-        this.projectRepository = projectRepository;
-    }
-
     @Override
     public void create(final @Nullable Task entity) {
         if (entity == null) throw new NullSaveException();
@@ -44,28 +34,6 @@ public class TaskService implements ITaskService {
         @NotNull final Task task = new Task();
         task.setId(entity.getId());
         task.setName(entity.getName());
-        task.setProject(projectRepository.findById(entity.getProjectId()));
-        taskRepository.save(task);
-    }
-
-    @Override
-    public void update(final @Nullable Task entity) {
-        if (entity == null) throw new NullSaveException();
-        if (entity.getName() == null || entity.getName().isEmpty()) throw new NullOrEmptyNameException();
-        taskRepository.save(entity);
-    }
-
-    @Override
-    public void update(final @Nullable TaskDTO entity) {
-        if (entity == null) throw new NullSaveException();
-        if (entity.getName() == null || entity.getName().isEmpty()) throw new NullOrEmptyNameException();
-        @Nullable final Task task = taskRepository.findById(entity.getId());
-        if (task == null) throw new NoSuchProjectException();
-        task.setName(entity.getName());
-        task.setDescription(entity.getDescription());
-        task.setStartDate(entity.getStartDate());
-        task.setEndDate(entity.getEndDate());
-        task.setStatus(entity.getStatus());
         task.setProject(projectRepository.findById(entity.getProjectId()));
         taskRepository.save(task);
     }
@@ -86,6 +54,38 @@ public class TaskService implements ITaskService {
     public Task getById(final @Nullable String id) {
         if (id == null || id.isEmpty()) throw new IdNullOrEmptyException();
         return taskRepository.findById(id);
+    }
+
+    @Autowired
+    public void setProjectRepository(final IProjectRepository projectRepository) {
+        this.projectRepository = projectRepository;
+    }
+
+    @Autowired
+    public void setTaskRepository(@NotNull final ITaskRepository taskRepository) {
+        this.taskRepository = taskRepository;
+    }
+
+    @Override
+    public void update(final @Nullable TaskDTO entity) {
+        if (entity == null) throw new NullSaveException();
+        if (entity.getName() == null || entity.getName().isEmpty()) throw new NullOrEmptyNameException();
+        @Nullable final Task task = taskRepository.findById(entity.getId());
+        if (task == null) throw new NoSuchProjectException();
+        task.setName(entity.getName());
+        task.setDescription(entity.getDescription());
+        task.setStartDate(entity.getStartDate());
+        task.setEndDate(entity.getEndDate());
+        task.setStatus(entity.getStatus());
+        task.setProject(projectRepository.findById(entity.getProjectId()));
+        taskRepository.save(task);
+    }
+
+    @Override
+    public void update(final @Nullable Task entity) {
+        if (entity == null) throw new NullSaveException();
+        if (entity.getName() == null || entity.getName().isEmpty()) throw new NullOrEmptyNameException();
+        taskRepository.save(entity);
     }
 
 }

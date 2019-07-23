@@ -10,8 +10,6 @@ public interface IEntityService<T extends AbstractEntity> {
 
     void create(@Nullable final T entity);
 
-    void update(@Nullable final T entity);
-
     void delete(@Nullable final T entity);
 
     @NotNull
@@ -19,5 +17,7 @@ public interface IEntityService<T extends AbstractEntity> {
 
     @Nullable
     T getById(@Nullable final String id);
+
+    void update(@Nullable final T entity);
 
 }

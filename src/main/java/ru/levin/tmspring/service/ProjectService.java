@@ -23,25 +23,8 @@ public class ProjectService implements IProjectService {
     private ProjectRepository projectRepository;
     private TaskRepository taskRepository;
 
-    @Autowired
-    public void setProjectRepository(@NotNull final ProjectRepository projectRepository) {
-        this.projectRepository = projectRepository;
-    }
-
-    @Autowired
-    public void setTaskRepository(@NotNull final TaskRepository taskRepository) {
-        this.taskRepository = taskRepository;
-    }
-
     @Override
     public void create(final @Nullable Project entity) {
-        if (entity == null) throw new NullSaveException();
-        if (entity.getName() == null || entity.getName().isEmpty()) throw new NullOrEmptyNameException();
-        projectRepository.save(entity);
-    }
-
-    @Override
-    public void update(final @Nullable Project entity) {
         if (entity == null) throw new NullSaveException();
         if (entity.getName() == null || entity.getName().isEmpty()) throw new NullOrEmptyNameException();
         projectRepository.save(entity);
@@ -67,6 +50,23 @@ public class ProjectService implements IProjectService {
     public Project getById(final @Nullable String id) {
         if (id == null || id.isEmpty()) throw new IdNullOrEmptyException();
         return projectRepository.findById(id);
+    }
+
+    @Autowired
+    public void setProjectRepository(@NotNull final ProjectRepository projectRepository) {
+        this.projectRepository = projectRepository;
+    }
+
+    @Autowired
+    public void setTaskRepository(@NotNull final TaskRepository taskRepository) {
+        this.taskRepository = taskRepository;
+    }
+
+    @Override
+    public void update(final @Nullable Project entity) {
+        if (entity == null) throw new NullSaveException();
+        if (entity.getName() == null || entity.getName().isEmpty()) throw new NullOrEmptyNameException();
+        projectRepository.save(entity);
     }
 
 }

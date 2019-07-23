@@ -15,11 +15,6 @@ import java.util.List;
 public class ProjectRepository extends AbstractRepository<Project> implements IProjectRepository {
 
     @Override
-    public void save(final @NotNull Project entity) {
-        this.storage.put(entity.getId(), entity);
-    }
-
-    @Override
     public void delete(final @NotNull Project entity) {
         this.storage.remove(entity.getId(), entity);
     }
@@ -38,6 +33,11 @@ public class ProjectRepository extends AbstractRepository<Project> implements IP
     @Override
     public @NotNull List<Project> getAll() {
         return new ArrayList<>(this.storage.values());
+    }
+
+    @Override
+    public void save(final @NotNull Project entity) {
+        this.storage.put(entity.getId(), entity);
     }
 
 }

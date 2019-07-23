@@ -8,8 +8,6 @@ import java.util.List;
 
 public interface IRepository<T extends AbstractEntity> {
 
-    void save(@NotNull final T entity);
-
     void delete(@NotNull final T entity);
 
     void deleteById(@NotNull final String id);
@@ -19,5 +17,7 @@ public interface IRepository<T extends AbstractEntity> {
 
     @NotNull
     List<T> getAll();
+
+    void save(@NotNull final T entity);
 
 }

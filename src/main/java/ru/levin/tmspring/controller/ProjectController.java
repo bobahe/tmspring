@@ -23,49 +23,11 @@ public class ProjectController {
     @NotNull
     private IProjectService projectService;
 
-    @RequestMapping(value = "/project-list", method = RequestMethod.GET)
-    public String getProjectList(final Model model) {
-        @NotNull final List<Project> projects = projectService.findAll();
-        model.addAttribute("projects", projects);
-        return "project-list";
-    }
-
-    @RequestMapping(value = "/project-list", method = RequestMethod.POST)
-    public String getProjectList(final Model model, final RedirectAttributes redirectAttributes) {
-        @NotNull final List<Project> projects = projectService.findAll();
-        model.addAttribute("projects", projects);
-        return "project-list";
-    }
-
     @RequestMapping("/project-create")
     public String createProject(final Model model) {
         @NotNull final Project project = new Project();
         model.addAttribute("project", project);
         return "project-create";
-    }
-
-    @RequestMapping("/project-edit/{id}")
-    public String editProject(final Model model, @PathVariable("id") String projectId) {
-        model.addAttribute("project", projectService.getById(projectId));
-        model.addAttribute("statuses", Status.values());
-        return "project-edit";
-    }
-
-    @RequestMapping("/project-detail/{id}")
-    public String showProject(final Model model, @PathVariable String id) {
-        model.addAttribute("project", projectService.getById(id));
-        return "project-detail";
-    }
-
-    @RequestMapping(value = "/project-save", method = RequestMethod.POST)
-    public String saveProject(final RedirectAttributes redirectAttributes, final @ModelAttribute("project") Project project) {
-        redirectAttributes.addFlashAttribute("error", "");
-        try {
-            projectService.create(project);
-        } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("error", e.getMessage());
-        }
-        return "redirect:project-list";
     }
 
     @RequestMapping(value = "/project-delete/{id}")
@@ -81,9 +43,47 @@ public class ProjectController {
         return "redirect:/project-list";
     }
 
+    @RequestMapping("/project-edit/{id}")
+    public String editProject(final Model model, @PathVariable("id") String projectId) {
+        model.addAttribute("project", projectService.getById(projectId));
+        model.addAttribute("statuses", Status.values());
+        return "project-edit";
+    }
+
+    @RequestMapping(value = "/project-list", method = RequestMethod.POST)
+    public String getProjectList(final Model model, final RedirectAttributes redirectAttributes) {
+        @NotNull final List<Project> projects = projectService.findAll();
+        model.addAttribute("projects", projects);
+        return "project-list";
+    }
+
+    @RequestMapping(value = "/project-list", method = RequestMethod.GET)
+    public String getProjectList(final Model model) {
+        @NotNull final List<Project> projects = projectService.findAll();
+        model.addAttribute("projects", projects);
+        return "project-list";
+    }
+
+    @RequestMapping(value = "/project-save", method = RequestMethod.POST)
+    public String saveProject(final RedirectAttributes redirectAttributes, final @ModelAttribute("project") Project project) {
+        redirectAttributes.addFlashAttribute("error", "");
+        try {
+            projectService.create(project);
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
+        }
+        return "redirect:project-list";
+    }
+
     @Autowired
     public void setProjectService(@NotNull final IProjectService projectService) {
         this.projectService = projectService;
+    }
+
+    @RequestMapping("/project-detail/{id}")
+    public String showProject(final Model model, @PathVariable String id) {
+        model.addAttribute("project", projectService.getById(id));
+        return "project-detail";
     }
 
 }

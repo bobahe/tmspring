@@ -29,20 +29,6 @@ public class TaskController {
     @NotNull
     private IProjectService projectService;
 
-    @RequestMapping(value = "/task-list", method = RequestMethod.GET)
-    public String getTaskList(final Model model) {
-        @NotNull final List<Task> tasks = taskService.findAll();
-        model.addAttribute("tasks", tasks);
-        return "task-list";
-    }
-
-    @RequestMapping(value = "/task-list", method = RequestMethod.POST)
-    public String getTaskList(final Model model, final RedirectAttributes redirectAttributes) {
-        @NotNull final List<Task> tasks = taskService.findAll();
-        model.addAttribute("tasks", tasks);
-        return "task-list";
-    }
-
     @RequestMapping("/task-create")
     public String createTask(final Model model, final RedirectAttributes redirectAttributes) {
         @NotNull final List<Project> projects = projectService.findAll();
@@ -54,6 +40,19 @@ public class TaskController {
         model.addAttribute("task", task);
         model.addAttribute("projects", projects);
         return "task-create";
+    }
+
+    @RequestMapping(value = "/task-delete/{id}")
+    public String deleteTask(final RedirectAttributes redirectAttributes, final @PathVariable("id") String id) {
+        redirectAttributes.addFlashAttribute("error", "");
+        try {
+            @Nullable final Task task = taskService.getById(id);
+            if (task == null) throw new NoSuchProjectException();
+            taskService.delete(task);
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
+        }
+        return "redirect:/task-list";
     }
 
     @RequestMapping("/task-edit/{id}")
@@ -74,10 +73,18 @@ public class TaskController {
         return "task-edit";
     }
 
-    @RequestMapping("/task-detail/{id}")
-    public String showTask(final Model model, @PathVariable String id) {
-        model.addAttribute("task", taskService.getById(id));
-        return "task-detail";
+    @RequestMapping(value = "/task-list", method = RequestMethod.POST)
+    public String getTaskList(final Model model, final RedirectAttributes redirectAttributes) {
+        @NotNull final List<Task> tasks = taskService.findAll();
+        model.addAttribute("tasks", tasks);
+        return "task-list";
+    }
+
+    @RequestMapping(value = "/task-list", method = RequestMethod.GET)
+    public String getTaskList(final Model model) {
+        @NotNull final List<Task> tasks = taskService.findAll();
+        model.addAttribute("tasks", tasks);
+        return "task-list";
     }
 
     @RequestMapping(value = "/task-save", method = RequestMethod.POST)
@@ -95,17 +102,9 @@ public class TaskController {
         return "redirect:task-list";
     }
 
-    @RequestMapping(value = "/task-delete/{id}")
-    public String deleteTask(final RedirectAttributes redirectAttributes, final @PathVariable("id") String id) {
-        redirectAttributes.addFlashAttribute("error", "");
-        try {
-            @Nullable final Task task = taskService.getById(id);
-            if (task == null) throw new NoSuchProjectException();
-            taskService.delete(task);
-        } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("error", e.getMessage());
-        }
-        return "redirect:/task-list";
+    @Autowired
+    public void setProjectService(@NotNull final IProjectService projectService) {
+        this.projectService = projectService;
     }
 
     @Autowired
@@ -113,8 +112,9 @@ public class TaskController {
         this.taskService = taskService;
     }
 
-    @Autowired
-    public void setProjectService(@NotNull final IProjectService projectService) {
-        this.projectService = projectService;
+    @RequestMapping("/task-detail/{id}")
+    public String showTask(final Model model, @PathVariable String id) {
+        model.addAttribute("task", taskService.getById(id));
+        return "task-detail";
     }
 }

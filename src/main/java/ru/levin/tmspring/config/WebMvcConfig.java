@@ -16,6 +16,12 @@ import ru.levin.tmspring.converter.StringToLocalDateTimeConverter;
 @ComponentScan(basePackages = "ru.levin.tmspring")
 public class WebMvcConfig implements WebMvcConfigurer {
 
+    @Override
+    public void addFormatters(FormatterRegistry registry) {
+        registry.addConverter(new StringToLocalDateTimeConverter());
+        registry.addConverter(new LocalDateTimeToStringConverter());
+    }
+
     @Bean
     public InternalResourceViewResolver resolver() {
         final InternalResourceViewResolver resolver = new InternalResourceViewResolver();
@@ -23,12 +29,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
         resolver.setPrefix("/WEB-INF/views/");
         resolver.setSuffix(".jsp");
         return resolver;
-    }
-
-    @Override
-    public void addFormatters(FormatterRegistry registry) {
-        registry.addConverter(new StringToLocalDateTimeConverter());
-        registry.addConverter(new LocalDateTimeToStringConverter());
     }
 
 }
