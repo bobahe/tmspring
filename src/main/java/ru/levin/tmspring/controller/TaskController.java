@@ -57,17 +57,9 @@ public class TaskController {
 
     @RequestMapping("/task-edit/{id}")
     public String editTask(final Model model, @PathVariable("id") String id) {
-        @Nullable final Task task = taskService.getById(id);
+        @Nullable final TaskDTO task = taskService.getDtoById(id);
         if (task == null) throw new NoSuchProjectException();
-        @NotNull final TaskDTO taskDTO = new TaskDTO();
-        taskDTO.setId(task.getId());
-        taskDTO.setName(task.getName());
-        taskDTO.setDescription(task.getDescription());
-        taskDTO.setStartDate(task.getStartDate());
-        taskDTO.setEndDate(task.getEndDate());
-        taskDTO.setStatus(task.getStatus());
-        taskDTO.setProjectId(task.getProject().getId());
-        model.addAttribute("task", taskDTO);
+        model.addAttribute("task", task);
         model.addAttribute("statuses", Status.values());
         model.addAttribute("projects", projectService.findAll());
         return "task-edit";
@@ -91,11 +83,18 @@ public class TaskController {
     public String saveTask(final RedirectAttributes redirectAttributes, final @ModelAttribute("task") TaskDTO task) {
         redirectAttributes.addFlashAttribute("error", "");
         try {
-            if (taskService.getById(task.getId()) == null) {
-                taskService.create(task);
-            } else {
-                taskService.update(task);
-            }
+            taskService.create(task);
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
+        }
+        return "redirect:task-list";
+    }
+
+    @RequestMapping(value = "/task-update", method = RequestMethod.POST)
+    public String udpateTask(final RedirectAttributes redirectAttributes, final @ModelAttribute("task") TaskDTO task) {
+        redirectAttributes.addFlashAttribute("error", "");
+        try {
+            taskService.update(task);
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", e.getMessage());
         }

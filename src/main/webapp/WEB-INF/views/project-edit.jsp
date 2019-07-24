@@ -19,7 +19,7 @@
 <div class="container">
     <div class="col-12 col-md-8 offset-md-2">
         <h1>Редактирование проекта</h1>
-        <form:form action="${pageContext.request.contextPath}/project-save" method="post" modelAttribute="project">
+        <form:form action="${pageContext.request.contextPath}/project-update" method="post" modelAttribute="project">
             <div class="form-group">
                 <form:label for="inputId" path="id">ID</form:label>
                 <form:input type="text" class="form-control"

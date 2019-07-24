@@ -20,7 +20,7 @@
 <div class="container">
     <div class="col-12 col-md-8 offset-md-2">
         <h1>Редактирование Задачи</h1>
-        <form:form action="${pageContext.request.contextPath}/task-save" method="post" modelAttribute="task">
+        <form:form action="${pageContext.request.contextPath}/task-update" method="post" modelAttribute="task">
             <div class="form-group">
                 <form:label for="inputId" path="id">ID</form:label>
                 <form:input type="text" class="form-control"
@@ -67,7 +67,7 @@
             </div>
             <div class="d-flex">
                 <button type="submit" class="btn btn-success mr-4"><i class="far fa-save"></i> Сохранить</button>
-                <a class="btn btn-light" href="<c:url value="/project-list"/>" role="button">
+                <a class="btn btn-light" href="<c:url value="/task-list"/>" role="button">
                     <i class="fas fa-chevron-circle-left"></i> Назад
                 </a>
             </div>

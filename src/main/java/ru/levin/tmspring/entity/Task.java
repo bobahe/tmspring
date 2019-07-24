@@ -2,31 +2,51 @@ package ru.levin.tmspring.entity;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.UUID;
 
 @Getter
 @Setter
-public class Task extends AbstractEntity {
+@NamedEntityGraph(
+        name = "task-graph",
+        attributeNodes = {
+                @NamedAttributeNode("project")
+        }
+)
+@Entity
+@Table(name = "task")
+public final class Task extends AbstractEntity {
 
+    @Column
     @Nullable
     private String name;
 
+    @Column
     @Nullable
     private String description;
 
+    @ManyToOne(cascade = {CascadeType.DETACH})
+    @Nullable
+    private Project project;
+
+    @Column
     @Nullable
     private LocalDate startDate;
 
+    @Column
     @Nullable
     private LocalDate endDate;
 
-    @NotNull
+    @Column
+    @Enumerated(value = EnumType.STRING)
+    @Nullable
     private Status status = Status.PLANNED;
 
-    @Nullable
-    private Project project;
+    public Task() {
+        this.id = UUID.randomUUID().toString();
+    }
 
 }

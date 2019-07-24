@@ -1,8 +1,8 @@
 package ru.levin.tmspring.api.repository;
 
-import ru.levin.tmspring.entity.Project;
+import ru.levin.tmspring.dto.ProjectDTO;
 
-public interface IProjectRepository extends IRepository<Project> {
+public interface IProjectRepository extends IRepository<ProjectDTO> {
 
 
 }

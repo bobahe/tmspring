@@ -75,6 +75,17 @@ public class ProjectController {
         return "redirect:project-list";
     }
 
+    @RequestMapping(value = "/project-update", method = RequestMethod.POST)
+    public String updateProject(final RedirectAttributes redirectAttributes, final @ModelAttribute("project") Project project) {
+        redirectAttributes.addFlashAttribute("error", "");
+        try {
+            projectService.update(project);
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
+        }
+        return "redirect:project-list";
+    }
+
     @Autowired
     public void setProjectService(@NotNull final IProjectService projectService) {
         this.projectService = projectService;

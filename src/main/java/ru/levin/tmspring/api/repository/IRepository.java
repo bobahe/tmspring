@@ -2,22 +2,19 @@ package ru.levin.tmspring.api.repository;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import ru.levin.tmspring.entity.AbstractEntity;
 
 import java.util.List;
 
-public interface IRepository<T extends AbstractEntity> {
+public interface IRepository<E> {
 
-    void delete(@NotNull final T entity);
+    void delete(@NotNull final E entity);
 
-    void deleteById(@NotNull final String id);
+    @NotNull List<E> findAll();
 
-    @Nullable
-    T findById(@NotNull final String id);
+    @Nullable E findById(@NotNull final String id);
 
-    @NotNull
-    List<T> getAll();
+    void save(@NotNull final E entity);
 
-    void save(@NotNull final T entity);
+    void update(@NotNull final E entity);
 
 }

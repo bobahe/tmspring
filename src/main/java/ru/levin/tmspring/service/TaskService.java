@@ -4,88 +4,91 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.levin.tmspring.api.repository.IProjectRepository;
+import org.springframework.transaction.annotation.Transactional;
+import ru.levin.tmspring.api.repository.ITaskEntityRepository;
 import ru.levin.tmspring.api.repository.ITaskRepository;
 import ru.levin.tmspring.api.service.ITaskService;
 import ru.levin.tmspring.dto.TaskDTO;
 import ru.levin.tmspring.entity.Task;
-import ru.levin.tmspring.exception.*;
+import ru.levin.tmspring.exception.IdNullOrEmptyException;
+import ru.levin.tmspring.exception.NullDeleteException;
+import ru.levin.tmspring.exception.NullOrEmptyNameException;
+import ru.levin.tmspring.exception.NullSaveException;
 
 import java.util.List;
 
 @Service
 public class TaskService implements ITaskService {
 
+    private ITaskEntityRepository taskEntityRepository;
+
     private ITaskRepository taskRepository;
 
-    private IProjectRepository projectRepository;
+    @Override
+    @Transactional
+    public void create(final @Nullable Task entity) {
+        if (entity == null) throw new NullSaveException();
+        if (entity.getName() == null || entity.getName().isEmpty()) throw new NullOrEmptyNameException();
+        taskEntityRepository.save(entity);
+    }
 
     @Override
-    public void create(final @Nullable Task entity) {
+    @Transactional
+    public void create(final @Nullable TaskDTO entity) {
         if (entity == null) throw new NullSaveException();
         if (entity.getName() == null || entity.getName().isEmpty()) throw new NullOrEmptyNameException();
         taskRepository.save(entity);
     }
 
     @Override
-    public void create(final @Nullable TaskDTO entity) {
-        if (entity == null) throw new NullSaveException();
-        if (entity.getName() == null || entity.getName().isEmpty()) throw new NullOrEmptyNameException();
-        @NotNull final Task task = new Task();
-        task.setId(entity.getId());
-        task.setName(entity.getName());
-        task.setProject(projectRepository.findById(entity.getProjectId()));
-        taskRepository.save(task);
-    }
-
-    @Override
+    @Transactional
     public void delete(final @Nullable Task entity) {
         if (entity == null) throw new NullDeleteException();
-        taskRepository.delete(entity);
+        taskEntityRepository.delete(entity);
     }
 
     @Override
     public @NotNull List<Task> findAll() {
-        return taskRepository.getAll();
+        return taskEntityRepository.findAll();
     }
 
     @Nullable
     @Override
     public Task getById(final @Nullable String id) {
         if (id == null || id.isEmpty()) throw new IdNullOrEmptyException();
+        return taskEntityRepository.findById(id);
+    }
+
+    @Nullable
+    @Override
+    public TaskDTO getDtoById(final @Nullable String id) {
+        if (id == null || id.isEmpty()) throw new IdNullOrEmptyException();
         return taskRepository.findById(id);
     }
 
     @Autowired
-    public void setProjectRepository(final IProjectRepository projectRepository) {
-        this.projectRepository = projectRepository;
+    public void setTaskEntityRepository(final ITaskEntityRepository taskEntityRepository) {
+        this.taskEntityRepository = taskEntityRepository;
     }
 
     @Autowired
-    public void setTaskRepository(@NotNull final ITaskRepository taskRepository) {
+    public void setTaskRepository(final ITaskRepository taskRepository) {
         this.taskRepository = taskRepository;
     }
 
     @Override
+    @Transactional
     public void update(final @Nullable TaskDTO entity) {
         if (entity == null) throw new NullSaveException();
         if (entity.getName() == null || entity.getName().isEmpty()) throw new NullOrEmptyNameException();
-        @Nullable final Task task = taskRepository.findById(entity.getId());
-        if (task == null) throw new NoSuchProjectException();
-        task.setName(entity.getName());
-        task.setDescription(entity.getDescription());
-        task.setStartDate(entity.getStartDate());
-        task.setEndDate(entity.getEndDate());
-        task.setStatus(entity.getStatus());
-        task.setProject(projectRepository.findById(entity.getProjectId()));
-        taskRepository.save(task);
+        taskRepository.update(entity);
     }
 
     @Override
+    @Transactional
     public void update(final @Nullable Task entity) {
         if (entity == null) throw new NullSaveException();
         if (entity.getName() == null || entity.getName().isEmpty()) throw new NullOrEmptyNameException();
-        taskRepository.save(entity);
+        taskEntityRepository.update(entity);
     }
-
 }
