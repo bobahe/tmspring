@@ -56,14 +56,14 @@ public class TaskService implements ITaskService {
     @Override
     public Task getById(final @Nullable String id) {
         if (id == null || id.isEmpty()) throw new IdNullOrEmptyException();
-        return taskEntityRepository.findById(id);
+        return taskEntityRepository.findById(id).orElse(null);
     }
 
     @Nullable
     @Override
     public TaskDTO getDtoById(final @Nullable String id) {
         if (id == null || id.isEmpty()) throw new IdNullOrEmptyException();
-        return taskRepository.findById(id);
+        return taskRepository.findById(id).orElse(null);
     }
 
     @Autowired
@@ -81,7 +81,7 @@ public class TaskService implements ITaskService {
     public void update(final @Nullable TaskDTO entity) {
         if (entity == null) throw new NullSaveException();
         if (entity.getName() == null || entity.getName().isEmpty()) throw new NullOrEmptyNameException();
-        taskRepository.update(entity);
+        taskRepository.save(entity);
     }
 
     @Override
@@ -89,6 +89,6 @@ public class TaskService implements ITaskService {
     public void update(final @Nullable Task entity) {
         if (entity == null) throw new NullSaveException();
         if (entity.getName() == null || entity.getName().isEmpty()) throw new NullOrEmptyNameException();
-        taskEntityRepository.update(entity);
+        taskEntityRepository.save(entity);
     }
 }

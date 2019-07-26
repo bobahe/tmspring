@@ -44,7 +44,7 @@ public class ProjectService implements IProjectService {
     @Override
     public Project getById(final @Nullable String id) {
         if (id == null || id.isEmpty()) throw new IdNullOrEmptyException();
-        return projectEntityRepository.findById(id);
+        return projectEntityRepository.findById(id).orElse(null);
     }
 
     @Autowired
@@ -57,7 +57,7 @@ public class ProjectService implements IProjectService {
     public void update(final @Nullable Project entity) {
         if (entity == null) throw new NullSaveException();
         if (entity.getName() == null || entity.getName().isEmpty()) throw new NullOrEmptyNameException();
-        projectEntityRepository.update(entity);
+        projectEntityRepository.save(entity);
     }
 
 }

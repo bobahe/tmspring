@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -27,6 +28,7 @@ import java.util.Properties;
 @EnableWebMvc
 @Configuration
 @ComponentScan(basePackages = "ru.levin.tmspring")
+@EnableJpaRepositories(basePackages = "ru.levin.tmspring.api.repository")
 @PropertySource("classpath:application.properties")
 @EnableTransactionManagement
 public class WebMvcConfig implements WebMvcConfigurer {
