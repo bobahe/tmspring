@@ -1,5 +1,6 @@
 package ru.levin.tmspring.config;
 
+import org.hibernate.cfg.Environment;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -82,6 +83,13 @@ public class WebMvcConfig implements WebMvcConfigurer {
         properties.put("hibernate.show_sql", showSql);
         properties.put("hibernate.hbm2ddl.auto", tableStrategy);
         properties.put("hibernate.dialect", dialect);
+        properties.put(Environment.USE_SECOND_LEVEL_CACHE, "true");
+        properties.put(Environment.USE_QUERY_CACHE, "true");
+        properties.put(Environment.USE_MINIMAL_PUTS, "true");
+        properties.put(Environment.CACHE_REGION_PREFIX, "tmws");
+        properties.put(Environment.CACHE_PROVIDER_CONFIG, "hazelcast.xml");
+        properties.put(Environment.CACHE_REGION_FACTORY, "com.hazelcast.hibernate.HazelcastLocalCacheRegionFactory");
+        properties.put("hibernate.cache.hazelcast.use_lite_member", "true");
         factoryBean.setJpaProperties(properties);
         return factoryBean;
     }
