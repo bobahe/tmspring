@@ -15,18 +15,13 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
-import org.springframework.web.servlet.view.JstlView;
 import ru.levin.tmspring.converter.LocalDateTimeToStringConverter;
 import ru.levin.tmspring.converter.StringToLocalDateTimeConverter;
 
 import javax.sql.DataSource;
 import java.util.Properties;
 
-@EnableWebMvc
 @Configuration
 @ComponentScan(basePackages = "ru.levin.tmspring")
 @EnableJpaRepositories(basePackages = "ru.levin.tmspring.api.repository")
@@ -38,20 +33,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public void addFormatters(FormatterRegistry registry) {
         registry.addConverter(new StringToLocalDateTimeConverter());
         registry.addConverter(new LocalDateTimeToStringConverter());
-    }
-
-    @Bean
-    public InternalResourceViewResolver resolver() {
-        final InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-        resolver.setViewClass(JstlView.class);
-        resolver.setPrefix("/WEB-INF/views/");
-        resolver.setSuffix(".jsp");
-        return resolver;
-    }
-
-    @Override
-    public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/").setViewName("forward:/project-list");
     }
 
     @Bean

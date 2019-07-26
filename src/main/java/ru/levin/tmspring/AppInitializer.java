@@ -1,23 +1,22 @@
 package ru.levin.tmspring;
 
-import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
+import com.sun.faces.config.FacesInitializer;
+import org.springframework.web.WebApplicationInitializer;
+import org.springframework.web.context.ContextLoaderListener;
+import org.springframework.web.context.request.RequestContextListener;
+import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import ru.levin.tmspring.config.WebMvcConfig;
 
-public class AppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
+import javax.servlet.ServletContext;
 
-    @Override
-    protected Class<?>[] getRootConfigClasses() {
-        return new Class[]{};
-    }
+public class AppInitializer extends FacesInitializer implements WebApplicationInitializer {
 
-    @Override
-    protected Class<?>[] getServletConfigClasses() {
-        return new Class[]{WebMvcConfig.class};
-    }
-
-    @Override
-    protected String[] getServletMappings() {
-        return new String[]{"/"};
+    public void onStartup(ServletContext servletContext) {
+        AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
+        context.register(WebMvcConfig.class);
+        context.setServletContext(servletContext);
+        servletContext.addListener(new ContextLoaderListener(context));
+        servletContext.addListener(new RequestContextListener());
     }
 
 }
