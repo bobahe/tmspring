@@ -7,6 +7,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.jetbrains.annotations.Nullable;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
@@ -23,7 +24,7 @@ import java.util.UUID;
 )
 @Entity
 @Table(name = "project")
-public final class Project extends AbstractEntity {
+public final class Project extends AbstractEntity implements Serializable {
 
     @Column
     @Nullable

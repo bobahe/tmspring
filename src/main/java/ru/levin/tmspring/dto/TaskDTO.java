@@ -9,6 +9,7 @@ import org.jetbrains.annotations.Nullable;
 import ru.levin.tmspring.entity.Status;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -18,7 +19,7 @@ import java.util.UUID;
 @Table(name = "task")
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class TaskDTO extends AbstractDTO {
+public class TaskDTO extends AbstractDTO implements Serializable {
 
     @Nullable
     @Column

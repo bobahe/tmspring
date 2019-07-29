@@ -7,12 +7,13 @@ import org.jetbrains.annotations.NotNull;
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import java.io.Serializable;
 import java.util.UUID;
 
 @MappedSuperclass
 @Getter
 @Setter
-public abstract class AbstractDTO {
+public abstract class AbstractDTO implements Serializable {
 
     @Id
     @Column(length = 191)

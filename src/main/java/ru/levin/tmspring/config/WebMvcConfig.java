@@ -58,7 +58,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
         properties.put(Environment.USE_SECOND_LEVEL_CACHE, "true");
         properties.put(Environment.USE_QUERY_CACHE, "true");
         properties.put(Environment.USE_MINIMAL_PUTS, "true");
-        properties.put(Environment.CACHE_REGION_PREFIX, "tmws");
+        properties.put(Environment.CACHE_REGION_PREFIX, "tmspring");
         properties.put(Environment.CACHE_PROVIDER_CONFIG, "hazelcast.xml");
         properties.put(Environment.CACHE_REGION_FACTORY, "com.hazelcast.hibernate.HazelcastLocalCacheRegionFactory");
         properties.put("hibernate.cache.hazelcast.use_lite_member", "true");

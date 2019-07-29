@@ -1,4 +1,4 @@
-package ru.levin.tmspring.primefaces;
+package ru.levin.tmspring.backbean;
 
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;

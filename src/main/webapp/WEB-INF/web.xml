@@ -25,9 +25,5 @@
         <param-name>primefaces.FONT_AWESOME</param-name>
         <param-value>true</param-value>
     </context-param>
-    <context-param>
-        <param-name>facelets.LIBRARIES</param-name>
-        <param-value>/META-INF/LocalDateConverter-taglib.xml</param-value>
-    </context-param>
 
 </web-app>

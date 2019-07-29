@@ -9,6 +9,7 @@ import ru.levin.tmspring.entity.Status;
 import ru.levin.tmspring.entity.Task;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
@@ -19,7 +20,7 @@ import java.util.UUID;
 @Table(name = "project")
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class ProjectDTO extends AbstractDTO {
+public class ProjectDTO extends AbstractDTO implements Serializable {
 
     @Column
     @Nullable
