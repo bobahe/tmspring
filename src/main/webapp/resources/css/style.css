@@ -1,0 +1,48 @@
+body {
+    margin: 0;
+    font: 400 18px Roboto, sans-serif;
+}
+
+a {
+    text-decoration: none;
+    color: #d8d8d8;
+}
+
+header {
+    height: 70px;
+    color: #d8d8d8;
+    background-color: #333;
+}
+
+haeder form {
+    padding: 0;
+}
+
+header .logolabel {
+    font-size: 1.5em;
+    margin-right: 1em;
+}
+
+header .menubar {
+    padding: 0;
+    background-color: #333;
+    color: #d8d8d8;
+    border: none;
+}
+
+header .menuLinks {
+    line-height: 2.1em;
+    margin-right: 5em;
+}
+
+header .menuLinks:before {
+    margin-right: 0.3em;
+}
+
+header .menuLinks:hover {
+    text-shadow: #d8d8d8 1px 0 10px;
+}
+
+.buttons {
+    padding: .3em 1em;
+}

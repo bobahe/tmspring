@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css">
 </head>
 <body>
-<%@include file="parts/headerProjectActive.jsp" %>
+<%@include file="../parts/headerProjectActive.jsp" %>
 
 <div class="container">
     <h1>Создание проекта</h1>

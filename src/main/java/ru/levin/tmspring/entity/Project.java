@@ -2,6 +2,8 @@ package ru.levin.tmspring.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.jetbrains.annotations.Nullable;
 
 import javax.persistence.*;
@@ -11,6 +13,8 @@ import java.util.UUID;
 
 @Getter
 @Setter
+@Cacheable
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @NamedEntityGraph(
         name = "project-graph",
         attributeNodes = {

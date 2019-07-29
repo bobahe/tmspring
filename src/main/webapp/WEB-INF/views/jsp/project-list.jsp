@@ -14,14 +14,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css">
 </head>
 <body style="position: relative;">
-<%@include file="parts/headerTaskActive.jsp" %>
+<%@include file="../parts/headerProjectActive.jsp" %>
 
 <div class="container">
-    <h1>Список задач</h1>
+    <h1>Список проектов</h1>
     <table class="table table-striped table-sm shadow rounded">
         <thead class="thead-dark">
         <th scope="col">№</th>
-        <th scope="col">Проект</th>
         <th scope="col">ID</th>
         <th scope="col">Имя</th>
         <th scope="col">Описание</th>
@@ -30,21 +29,20 @@
         <th scope="col" class="text-center">Удаление</th>
         </thead>
         <tbody>
-        <c:forEach var="task" items="${tasks}" varStatus="loop">
+        <c:forEach var="project" items="${projects}" varStatus="loop">
             <tr>
                 <td>${loop.index + 1}</td>
-                <td>${task.project.name}</td>
-                <td>${task.id}</td>
-                <td>${task.name}</td>
-                <td>${task.description}</td>
+                <td>${project.id}</td>
+                <td>${project.name}</td>
+                <td>${project.description}</td>
                 <td class="text-center">
-                    <a href="<c:url value="/task-detail/${task.id}"/>"><i class="far fa-eye text-info"></i></a>
+                    <a href="<c:url value="/project-detail/${project.id}"/>"><i class="far fa-eye text-info"></i></a>
                 </td>
                 <td class="text-center">
-                    <a href="<c:url value="/task-edit/${task.id}"/>"><i class="far fa-edit text-primary"></i></a>
+                    <a href="<c:url value="/project-edit/${project.id}"/>"><i class="far fa-edit text-primary"></i></a>
                 </td>
                 <td class="text-center">
-                    <a href="<c:url value="/task-delete/${task.id}"/>"><i class="far fa-trash-alt text-danger"></i></a>
+                    <a href="<c:url value="/project-delete/${project.id}"/>"><i class="far fa-trash-alt text-danger"></i></a>
                 </td>
             </tr>
         </c:forEach>
@@ -53,10 +51,10 @@
 
     <div class="d-flex">
         <a class="btn btn-success mr-3"
-           href="<c:url value="/task-create"/>" role="button">
-            <i class="fas fa-folder-plus"></i> Добавить задачу
+           href="<c:url value="/project-create"/>" role="button">
+            <i class="fas fa-folder-plus"></i> Добавить проект
         </a>
-        <a class="btn btn-light" href="<c:url value="/task-list"/>" role="button">
+        <a class="btn btn-light" href="<c:url value="/project-list"/>" role="button">
             <i class="fas fa-sync"></i> Обновить
         </a>
     </div>

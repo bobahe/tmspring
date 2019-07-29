@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="../templates/template.xhtml">
+    <ui:define name="content">
+        <h:form>
+            <p:dataTable var="task" value="#{taskBean.taskService.findAll()}" rows="10"
+                         paginator="true" paginatorPosition="bottom" id="taskTable"
+                         paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="10,20,50" tableStyleClass="table"
+                         style="margin-bottom: 10px;" rowIndexVar="rowIndex">
+                <p:column headerText="№" width="50">
+                    <h:outputText value="#{rowIndex + 1}"/>
+                </p:column>
+                <p:column headerText="Название задачи" width="200">
+                    <h:outputText value="#{task.name}"/>
+                </p:column>
+                <p:column headerText="Проект" width="200">
+                    <h:outputText value="#{task.project.name}"/>
+                </p:column>
+                <p:column headerText="Описание">
+                    <h:outputText value="#{task.description}"/>
+                </p:column>
+                <p:column headerText="Дата начала" width="150">
+                    <h:outputText value="#{task.startDate}" converter="ru.levin.tmspring.converter.LocalDateConverter"/>
+                </p:column>
+                <p:column headerText="Дата завершения" width="150">
+                    <h:outputText value="#{task.endDate}" converter="ru.levin.tmspring.converter.LocalDateConverter"/>
+                </p:column>
+                <p:column width="50" style="text-align: center;">
+                    <p:commandLink styleClass="fa fa-edit buttons" ajax="false"
+                                   action="#{taskBean.editTask(taskBean.taskService.getDtoById(task.id))}"/>
+                </p:column>
+                <p:column width="50" style="text-align: center;">
+                    <p:commandLink styleClass="fa fa-trash buttons"
+                                   action="#{taskBean.taskService.delete(taskBean.taskService.getById(task.id))}"
+                                   update="taskTable">
+                        <p:confirm header="Удаление" message="Вы уверены?" icon="pi pi-exclamation-triangle"/>
+                    </p:commandLink>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+            <p:commandButton value="Да" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check"/>
+            <p:commandButton value="Нет" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times"/>
+        </p:confirmDialog>
+        <h:form>
+            <p:commandButton icon="fa fa-plus" action="#{taskBean.createTask()}" ajax="false"
+                             value="Создать задачу"/>
+        </h:form>
+    </ui:define>
+</ui:composition>

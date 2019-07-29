@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css">
 </head>
 <body>
-<%@include file="parts/headerTaskActive.jsp" %>
+<%@include file="../parts/headerTaskActive.jsp" %>
 
 <div class="container">
     <div class="col-12 col-md-8 offset-md-2">

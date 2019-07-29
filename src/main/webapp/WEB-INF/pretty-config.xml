@@ -1,0 +1,41 @@
+<pretty-config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xmlns="http://ocpsoft.org/schema/rewrite-config-prettyfaces"
+               xsi:schemaLocation="http://ocpsoft.org/schema/rewrite-config-prettyfaces
+                      http://ocpsoft.org/xml/ns/prettyfaces/rewrite-config-prettyfaces.xsd">
+
+    <url-mapping id="index">
+        <pattern value="/"/>
+        <view-id value="/WEB-INF/views/index.xhtml"/>
+    </url-mapping>
+
+    <url-mapping id="projectList">
+        <pattern value="/project/list"/>
+        <view-id value="/WEB-INF/views/project-list.xhtml"/>
+    </url-mapping>
+
+    <url-mapping id="projectAdd">
+        <pattern value="/project/add"/>
+        <view-id value="/WEB-INF/views/project-add.xhtml"/>
+    </url-mapping>
+
+    <url-mapping id="projectEdit">
+        <pattern value="/project/edit"/>
+        <view-id value="/WEB-INF/views/project-edit.xhtml"/>
+    </url-mapping>
+
+    <url-mapping id="taskList">
+        <pattern value="/task/list"/>
+        <view-id value="/WEB-INF/views/task-list.xhtml"/>
+    </url-mapping>
+
+    <url-mapping id="taskAdd">
+        <pattern value="/task/add"/>
+        <view-id value="/WEB-INF/views/task-add.xhtml"/>
+    </url-mapping>
+
+    <url-mapping id="taskEdit">
+        <pattern value="/task/edit"/>
+        <view-id value="/WEB-INF/views/task-edit.xhtml"/>
+    </url-mapping>
+
+</pretty-config>

@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ page contentType="text/html; charset=utf-8" %>
 <!doctype html>
 <html lang="ru">
@@ -13,7 +14,33 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css">
 </head>
 <body>
-<%@include file="parts/headerProjectActive.jsp" %>
+<%@include file="../parts/headerProjectActive.jsp" %>
+
+<div class="container">
+    <h1>Создание задачи</h1>
+    <form:form action="${pageContext.request.contextPath}/task-save" method="post" modelAttribute="task">
+        <div class="form-group">
+            <form:label for="inputId" path="id">ID</form:label>
+            <form:input type="text" class="form-control"
+                        id="inputId"  path="id" aria-describedby="taskId" readonly="true"></form:input>
+        </div>
+        <div class="form-group">
+            <form:label path="projectId">Проект:</form:label>
+            <form:select path="projectId">
+                <form:options items="${projects}" itemValue="id" itemLabel="name"/>
+            </form:select>
+        </div>
+        <div class="form-group">
+            <form:label for="inputName" path="name">Имя</form:label>
+            <form:input type="text" class="form-control"
+                        id="inputName" path="name" aria-describedby="taskName"></form:input>
+        </div>
+        <div class="d-flex">
+            <button type="submit" class="btn btn-success mr-4">Сохранить</button>
+            <a class="btn btn-light" href="<c:url value="/task-list"/>" role="button">Отмена</a>
+        </div>
+    </form:form>
+</div>
 
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"

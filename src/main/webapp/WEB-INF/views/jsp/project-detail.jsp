@@ -13,42 +13,38 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css">
 </head>
 <body>
-<%@include file="parts/headerTaskActive.jsp" %>
+<%@include file="../parts/headerProjectActive.jsp" %>
 
 <div class="container">
     <div class="col-12 col-md-8 offset-md-2">
-        <h1>Детали задачи</h1>
+        <h1>Детали проекта</h1>
         <table class="table">
             <tr>
                 <td>ID:</td>
-                <td>${task.id}</td>
-            </tr>
-            <tr>
-                <td>Проект:</td>
-                <td>${task.project.name}</td>
+                <td>${project.id}</td>
             </tr>
             <tr>
                 <td>Название:</td>
-                <td>${task.name}</td>
+                <td>${project.name}</td>
             </tr>
             <tr>
                 <td>Описание:</td>
-                <td>${task.description}</td>
+                <td>${project.description}</td>
             </tr>
             <tr>
                 <td>Дата начала:</td>
-                <td class="dateStart">${task.startDate}</td>
+                <td class="dateStart">${project.startDate}</td>
             </tr>
             <tr>
                 <td>Дата завершения:</td>
-                <td class="dateEnd">${task.endDate}</td>
+                <td class="dateEnd">${project.endDate}</td>
             </tr>
             <tr>
                 <td>Статус:</td>
-                <td>${task.status.displayName}</td>
+                <td>${project.status.displayName}</td>
             </tr>
         </table>
-        <a class="btn btn-light" href="<c:url value="/task-list"/>" role="button"><i class="fas fa-chevron-circle-left"></i> Назад</a>
+        <a class="btn btn-light" href="<c:url value="/project-list"/>" role="button"><i class="fas fa-chevron-circle-left"></i> Назад</a>
     </div>
 </div>
 
