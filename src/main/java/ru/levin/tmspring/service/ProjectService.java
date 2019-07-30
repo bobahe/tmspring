@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.levin.tmspring.api.repository.IProjectEntityRepository;
+import ru.levin.tmspring.api.repository.IProjectRepository;
 import ru.levin.tmspring.api.service.IProjectService;
+import ru.levin.tmspring.dto.ProjectDTO;
 import ru.levin.tmspring.entity.Project;
 import ru.levin.tmspring.exception.IdNullOrEmptyException;
 import ru.levin.tmspring.exception.NullDeleteException;
@@ -20,6 +22,15 @@ public class ProjectService implements IProjectService {
 
     private IProjectEntityRepository projectEntityRepository;
 
+    private IProjectRepository projectRepository;
+
+    @Override
+    public void create(final @Nullable ProjectDTO entity) {
+        if (entity == null) throw new NullSaveException();
+        if (entity.getName() == null || entity.getName().isEmpty()) throw new NullOrEmptyNameException();
+        projectRepository.save(entity);
+    }
+
     @Override
     @Transactional
     public void create(final @Nullable Project entity) {
@@ -29,10 +40,25 @@ public class ProjectService implements IProjectService {
     }
 
     @Override
+    public List<ProjectDTO> findAllDto() {
+        return projectRepository.findAll();
+    }
+
+    @Autowired
+    public void setProjectEntityRepository(@NotNull final IProjectEntityRepository projectRepository) {
+        this.projectEntityRepository = projectRepository;
+    }
+
+    @Override
     @Transactional
     public void delete(final @Nullable Project entity) {
         if (entity == null) throw new NullDeleteException();
         projectEntityRepository.delete(entity);
+    }
+
+    @Autowired
+    public void setProjectRepository(final IProjectRepository projectRepository) {
+        this.projectRepository = projectRepository;
     }
 
     @Override
@@ -47,9 +73,11 @@ public class ProjectService implements IProjectService {
         return projectEntityRepository.findById(id).orElse(null);
     }
 
-    @Autowired
-    public void setProjectRepository(@NotNull final IProjectEntityRepository projectRepository) {
-        this.projectEntityRepository = projectRepository;
+    @Override
+    public void update(final @Nullable ProjectDTO entity) {
+        if (entity == null) throw new NullSaveException();
+        if (entity.getId() == null || entity.getId().isEmpty()) throw new IdNullOrEmptyException();
+        projectRepository.save(entity);
     }
 
     @Override

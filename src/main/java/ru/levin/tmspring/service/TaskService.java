@@ -91,4 +91,15 @@ public class TaskService implements ITaskService {
         if (entity.getName() == null || entity.getName().isEmpty()) throw new NullOrEmptyNameException();
         taskEntityRepository.save(entity);
     }
+
+    @Override
+    public List<TaskDTO> findAllDto() {
+        return taskRepository.findAll();
+    }
+
+    @Override
+    public List<TaskDTO> findByProjectId(final @Nullable String projectId) {
+        if (projectId == null || projectId.isEmpty()) throw new NullOrEmptyNameException();
+        return taskRepository.findByProjectId(projectId);
+    }
 }

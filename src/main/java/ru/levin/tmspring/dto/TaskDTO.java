@@ -6,9 +6,13 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import ru.levin.tmspring.converter.LocalDateAdapter;
 import ru.levin.tmspring.entity.Status;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.UUID;
@@ -19,6 +23,7 @@ import java.util.UUID;
 @Table(name = "task")
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@XmlAccessorType(XmlAccessType.FIELD)
 public class TaskDTO extends AbstractDTO implements Serializable {
 
     @Nullable
@@ -31,9 +36,12 @@ public class TaskDTO extends AbstractDTO implements Serializable {
 
     @Nullable
     @Column
+    @XmlJavaTypeAdapter(LocalDateAdapter.class)
     private LocalDate startDate;
 
     @Nullable
+    @Column
+    @XmlJavaTypeAdapter(LocalDateAdapter.class)
     private LocalDate endDate;
 
     @NotNull
@@ -48,4 +56,5 @@ public class TaskDTO extends AbstractDTO implements Serializable {
     public TaskDTO() {
         this.id = UUID.randomUUID().toString();
     }
+
 }

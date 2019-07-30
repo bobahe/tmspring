@@ -2,7 +2,7 @@ package ru.levin.tmspring.dto;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
@@ -17,7 +17,7 @@ public abstract class AbstractDTO implements Serializable {
 
     @Id
     @Column(length = 191)
-    @NotNull
+    @Nullable
     protected String id = UUID.randomUUID().toString();
 
 }

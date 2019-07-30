@@ -1,12 +1,12 @@
 package ru.levin.tmspring.config;
 
+import org.apache.cxf.bus.spring.SpringBus;
+import org.apache.cxf.jaxws.EndpointImpl;
 import org.hibernate.cfg.Environment;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.*;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -15,8 +15,11 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import ru.levin.tmspring.api.endpoint.IProjectEndpoint;
+import ru.levin.tmspring.api.endpoint.ITaskEndpoint;
 
 import javax.sql.DataSource;
+import javax.xml.ws.Endpoint;
 import java.util.Properties;
 
 @Configuration
@@ -24,7 +27,29 @@ import java.util.Properties;
 @EnableJpaRepositories(basePackages = "ru.levin.tmspring.api.repository")
 @PropertySource("classpath:application.properties")
 @EnableTransactionManagement
+@ImportResource({"classpath:META-INF/cxf/cxf.xml"})
 public class WebMvcConfig implements WebMvcConfigurer {
+
+    private SpringBus bus;
+
+    @Bean
+    public Endpoint endpointProject(IProjectEndpoint projectEndpoint) {
+        EndpointImpl endpoint = new EndpointImpl(bus, projectEndpoint);
+        endpoint.publish("/projectEndpoint");
+        return endpoint;
+    }
+
+    @Bean
+    public Endpoint endpointTask(ITaskEndpoint taskEndpoint) {
+        EndpointImpl endpoint = new EndpointImpl(bus, taskEndpoint);
+        endpoint.publish("/taskEndpoint");
+        return endpoint;
+    }
+
+    @Autowired
+    public void setBus(final SpringBus bus) {
+        this.bus = bus;
+    }
 
     @Bean
     public DataSource dataSource(

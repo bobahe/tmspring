@@ -5,13 +5,15 @@ import lombok.Setter;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.jetbrains.annotations.Nullable;
+import ru.levin.tmspring.converter.LocalDateAdapter;
 import ru.levin.tmspring.entity.Status;
-import ru.levin.tmspring.entity.Task;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -20,6 +22,7 @@ import java.util.UUID;
 @Table(name = "project")
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@XmlAccessorType(XmlAccessType.FIELD)
 public class ProjectDTO extends AbstractDTO implements Serializable {
 
     @Column
@@ -32,10 +35,12 @@ public class ProjectDTO extends AbstractDTO implements Serializable {
 
     @Column
     @Nullable
+    @XmlJavaTypeAdapter(LocalDateAdapter.class)
     private LocalDate startDate;
 
     @Column
     @Nullable
+    @XmlJavaTypeAdapter(LocalDateAdapter.class)
     private LocalDate endDate;
 
     @Column
@@ -43,14 +48,8 @@ public class ProjectDTO extends AbstractDTO implements Serializable {
     @Nullable
     private Status status = Status.PLANNED;
 
-    @OneToMany(
-            mappedBy = "project",
-            cascade = {CascadeType.REMOVE}
-    )
-    @Nullable
-    private List<Task> tasks;
-
     public ProjectDTO() {
         this.id = UUID.randomUUID().toString();
     }
+
 }

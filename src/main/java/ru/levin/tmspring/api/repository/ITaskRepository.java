@@ -15,4 +15,7 @@ public interface ITaskRepository extends JpaRepository<TaskDTO, String> {
     @QueryHints(value = {@QueryHint(name = "org.hibernate.cacheable", value = "true")})
     @NotNull List<TaskDTO> findAll();
 
+    @QueryHints(value = {@QueryHint(name = "org.hibernate.cacheable", value = "true")})
+    @NotNull List<TaskDTO> findByProjectId(final String projectId);
+
 }
