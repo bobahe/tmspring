@@ -14,6 +14,7 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import ru.levin.tmspring.api.endpoint.IProjectEndpoint;
 import ru.levin.tmspring.api.endpoint.ITaskEndpoint;
@@ -28,6 +29,7 @@ import java.util.Properties;
 @PropertySource("classpath:application.properties")
 @EnableTransactionManagement
 @ImportResource({"classpath:META-INF/cxf/cxf.xml"})
+@EnableWebMvc
 public class WebMvcConfig implements WebMvcConfigurer {
 
     private SpringBus bus;
