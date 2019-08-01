@@ -6,6 +6,7 @@ import org.hibernate.cfg.Environment;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.netflix.feign.EnableFeignClients;
 import org.springframework.context.annotation.*;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -18,6 +19,8 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import ru.levin.tmspring.api.endpoint.IProjectEndpoint;
 import ru.levin.tmspring.api.endpoint.ITaskEndpoint;
+import ru.levin.tmspring.api.feign.IProjectClient;
+import ru.levin.tmspring.api.feign.ITaskClient;
 
 import javax.sql.DataSource;
 import javax.xml.ws.Endpoint;
@@ -30,9 +33,20 @@ import java.util.Properties;
 @EnableTransactionManagement
 @ImportResource({"classpath:META-INF/cxf/cxf.xml"})
 @EnableWebMvc
+@EnableFeignClients
 public class WebMvcConfig implements WebMvcConfigurer {
 
     private SpringBus bus;
+
+    @Bean
+    public IProjectClient getIProject() {
+        return IProjectClient.client("http://localhost:8888/tmspring/api");
+    }
+
+    @Bean
+    public ITaskClient getITask() {
+        return ITaskClient.client("http://localhost:8888/tmspring/api");
+    }
 
     @Bean
     public Endpoint endpointProject(IProjectEndpoint projectEndpoint) {

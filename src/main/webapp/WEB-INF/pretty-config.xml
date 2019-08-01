@@ -38,4 +38,34 @@
         <view-id value="/WEB-INF/views/task-edit.xhtml"/>
     </url-mapping>
 
+    <url-mapping id="projectApiList">
+        <pattern value="/projectapi/list"/>
+        <view-id value="/WEB-INF/views/rest/project-list.xhtml"/>
+    </url-mapping>
+
+    <url-mapping id="projectApiAdd">
+        <pattern value="/projectapi/add"/>
+        <view-id value="/WEB-INF/views/rest/project-add.xhtml"/>
+    </url-mapping>
+
+    <url-mapping id="projectApiEdit">
+        <pattern value="/projectapi/edit"/>
+        <view-id value="/WEB-INF/views/rest/project-edit.xhtml"/>
+    </url-mapping>
+
+    <url-mapping id="taskApiList">
+        <pattern value="/taskapi/list"/>
+        <view-id value="/WEB-INF/views/rest/task-list.xhtml"/>
+    </url-mapping>
+
+    <url-mapping id="taskApiAdd">
+        <pattern value="/taskapi/add"/>
+        <view-id value="/WEB-INF/views/rest/task-add.xhtml"/>
+    </url-mapping>
+
+    <url-mapping id="taskApiEdit">
+        <pattern value="/taskapi/edit"/>
+        <view-id value="/WEB-INF/views/rest/task-edit.xhtml"/>
+    </url-mapping>
+
 </pretty-config>

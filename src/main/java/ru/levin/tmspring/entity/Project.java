@@ -8,7 +8,7 @@ import org.jetbrains.annotations.Nullable;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -34,13 +34,13 @@ public final class Project extends AbstractEntity implements Serializable {
     @Nullable
     private String description;
 
-    @Column
     @Nullable
-    private LocalDate startDate;
+    @Column
+    private Date startDate;
 
-    @Column
     @Nullable
-    private LocalDate endDate;
+    @Column
+    private Date endDate;
 
     @Column
     @Enumerated(value = EnumType.STRING)

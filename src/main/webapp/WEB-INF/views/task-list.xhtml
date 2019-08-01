@@ -2,7 +2,7 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:p="http://primefaces.org/ui"
+                xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core"
                 template="../templates/template.xhtml">
     <ui:define name="content">
         <h:form>
@@ -24,10 +24,14 @@
                     <h:outputText value="#{task.description}"/>
                 </p:column>
                 <p:column headerText="Дата начала" width="150">
-                    <h:outputText value="#{task.startDate}" converter="ru.levin.tmspring.converter.LocalDateConverter"/>
+                    <h:outputText value="#{task.startDate}">
+                        <f:convertDateTime type="date" pattern="dd.MM.yyyy"/>
+                    </h:outputText>
                 </p:column>
                 <p:column headerText="Дата завершения" width="150">
-                    <h:outputText value="#{task.endDate}" converter="ru.levin.tmspring.converter.LocalDateConverter"/>
+                    <h:outputText value="#{task.endDate}">
+                        <f:convertDateTime type="date" pattern="dd.MM.yyyy"/>
+                    </h:outputText>
                 </p:column>
                 <p:column width="50" style="text-align: center;">
                     <p:commandLink styleClass="fa fa-edit buttons" ajax="false"

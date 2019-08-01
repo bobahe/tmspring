@@ -81,6 +81,12 @@ public class ProjectService implements IProjectService {
     }
 
     @Override
+    public ProjectDTO findById(final @Nullable String id) {
+        if (id == null || id.isEmpty()) return null;
+        return projectRepository.findById(id).orElse(null);
+    }
+
+    @Override
     @Transactional
     public void update(final @Nullable Project entity) {
         if (entity == null) throw new NullSaveException();

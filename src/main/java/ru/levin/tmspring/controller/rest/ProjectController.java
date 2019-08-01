@@ -31,6 +31,12 @@ public class ProjectController {
         return projectService.findAllDto();
     }
 
+    @GetMapping(value = "/project/getById/{id}")
+    public ProjectDTO getProjectById(@PathVariable(name = "id") final String projectId) {
+        if (projectId == null || projectId.isEmpty()) throw new NoSuchProjectException();
+        return projectService.findById(projectId);
+    }
+
     @GetMapping(value = "/project/tasks/{id}")
     public List<TaskDTO> getProjectTasks(@PathVariable(name = "id") final String projectId) {
         if (projectId == null || projectId.isEmpty()) throw new NoSuchProjectException();

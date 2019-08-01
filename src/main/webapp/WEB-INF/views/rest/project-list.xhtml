@@ -3,10 +3,10 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core"
-                template="../templates/template.xhtml">
+                template="../../templates/template.xhtml">
     <ui:define name="content">
         <h:form>
-            <p:dataTable var="project" value="#{projectBean.projectService.findAll()}" rows="10"
+            <p:dataTable var="project" value="#{projectApiBean.client.getProjectAll()}" rows="10"
                          paginator="true" paginatorPosition="bottom" id="projectTable"
                          paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                          rowsPerPageTemplate="10,20,50" tableStyleClass="table"
@@ -32,11 +32,11 @@
                 </p:column>
                 <p:column width="50" style="text-align: center;">
                     <p:commandLink styleClass="fa fa-edit buttons" ajax="false"
-                                   action="#{projectBean.editProject(project)}"/>
+                                   action="#{projectApiBean.editProject(project)}"/>
                 </p:column>
                 <p:column width="50" style="text-align: center;">
                     <p:commandLink styleClass="fa fa-trash buttons"
-                                   action="#{projectBean.projectService.delete(project)}"
+                                   action="#{projectApiBean.client.removeProject(project.id)}"
                                    update="projectTable">
                         <p:confirm header="Удаление" message="Вы уверены?" icon="pi pi-exclamation-triangle"/>
                     </p:commandLink>
@@ -48,7 +48,7 @@
             <p:commandButton value="Нет" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times"/>
         </p:confirmDialog>
         <h:form>
-            <p:commandButton icon="fa fa-plus" action="#{projectBean.createProject()}" ajax="false"
+            <p:commandButton icon="fa fa-plus" action="#{projectApiBean.createProject()}" ajax="false"
                              value="Создать проект"/>
         </h:form>
     </ui:define>

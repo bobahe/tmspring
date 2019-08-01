@@ -14,4 +14,6 @@ public interface IProjectService extends IEntityService<Project> {
 
     void update(final @Nullable ProjectDTO entity);
 
+    ProjectDTO findById(@Nullable final String id);
+
 }

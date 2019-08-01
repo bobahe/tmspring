@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui" xmlns:h="http://xmlns.jcp.org/jsf/html"
+                template="../../templates/template.xhtml">
+    <ui:define name="content">
+        <h:form>
+            <p:panelGrid columns="2" columnClasses="ui-g-12 ui-md-3, ui-g-12 ui-md-9" layout="grid"
+                         styleClass="ui-panelgrid-blank ui-fluid">
+                <p:outputLabel value="Название проекта"/>
+                <p:inputText value="#{projectApiBean.project.name}" placeholder="Название проекта"/>
+
+            </p:panelGrid>
+            <p:commandButton action="#{projectApiBean.saveProject()}" styleClass="buttons"
+                             icon="fa fa-fw fa-save" ajax="false"
+                             value="Сохранить"/>
+            <p:linkButton outcome="pretty:projectApiList" styleClass="buttons" value="Назад"/>
+        </h:form>
+    </ui:define>
+</ui:composition>
+

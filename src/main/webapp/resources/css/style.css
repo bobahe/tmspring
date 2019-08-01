@@ -32,7 +32,7 @@ header .menubar {
 
 header .menuLinks {
     line-height: 2.1em;
-    margin-right: 5em;
+    margin-right: 2em;
 }
 
 header .menuLinks:before {
