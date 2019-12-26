@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ page contentType="text/html; charset=utf-8" %>
 <!doctype html>
 <html lang="ru">
@@ -14,6 +15,26 @@
 </head>
 <body>
 <%@include file="parts/headerProjectActive.jsp" %>
+
+<div class="container">
+    <h1>Создание проекта</h1>
+    <form:form action="${pageContext.request.contextPath}/project-save" method="post" modelAttribute="project">
+        <div class="form-group">
+            <form:label for="inputId" path="id">ID</form:label>
+            <form:input type="text" class="form-control"
+                        id="inputId"  path="id" aria-describedby="projectId" readonly="true"></form:input>
+        </div>
+        <div class="form-group">
+            <form:label for="inputName" path="name">Имя</form:label>
+            <form:input type="text" class="form-control"
+                        id="inputName" path="name" name="projectName" aria-describedby="projectName"></form:input>
+        </div>
+        <div class="d-flex">
+            <button type="submit" class="btn btn-success mr-4">Сохранить</button>
+            <a class="btn btn-light" href="<c:url value="/project-list"/>" role="button">Отмена</a>
+        </div>
+    </form:form>
+</div>
 
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
